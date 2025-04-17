@@ -16,7 +16,7 @@ import static dataProviders.repositoryFileReader.findElementRepo;
 
 public class webSteps {
     protected static WebDriver driver;
-    private final String email;
+    private final String username;
     private final String password;
 
 
@@ -25,15 +25,15 @@ public class webSteps {
 
         // Load email and password from properties file
         Properties properties = propertyLoader.loadProperties("src/main/resources/dataset.properties");
-        this.email = properties.getProperty("email");
+        this.username = properties.getProperty("username");
         this.password = properties.getProperty("password");
     }
 
     public void login() throws InterruptedException {
         waiting();
-        type(email, "customerEmailField");
-        type(password, "customerPasswordField");
-        click("customerLoginButton");
+        type(username, "Login_username");
+        type(password, "Login_password");
+        click("LoginButton");
         waiting();
     }
 
