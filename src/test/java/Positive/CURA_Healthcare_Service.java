@@ -43,4 +43,26 @@ public class CURA_Healthcare_Service extends baseTest {
         boolean urlVerification = driver.getCurrentUrl().contains("summary");
         Assert.assertTrue(urlVerification, "Expected appointment to be created successfully, but confirmation message was not displayed.");
     }
+
+    @Test (priority = 3)
+    public void appointmentConfirmation() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment Confirmation </b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify appointment details confirmation after booking</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details");
+        webSteps.waiting();
+        webSteps.select("MA_FacilityDropdown",3,2);
+        webSteps.click("MA_HealthcareProgramRadioButton");
+        webSteps.click("MA_ClickVisitDate");
+        webSteps.click("MA_SelectVisitDate");
+        webSteps.type("Appointment for medical test review and discussion.","MA_Comment");
+        webSteps.click("MA_BookAppointment");
+        boolean urlVerification = driver.getCurrentUrl().contains("summary");
+        webSteps.scrollToElement("MA_AppointmentConfirmation");
+        String pageSource = driver.getPageSource();
+        Assert.assertTrue(pageSource.contains("Tokyo CURA Healthcare Center"), "Facility not found on page!");
+        Assert.assertTrue(pageSource.contains("No"), "Hospital readmission info missing!");
+        Assert.assertTrue(pageSource.contains("Medicaid"), "Healthcare Program missing!");
+        Assert.assertTrue(pageSource.contains("30/04/2025"), "Visit Date missing!");
+        Assert.assertTrue(pageSource.contains("Appointment for medical test review and discussion."), "Comment missing!");
+    }
 }
