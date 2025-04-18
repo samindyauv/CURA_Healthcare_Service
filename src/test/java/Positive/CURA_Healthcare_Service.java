@@ -1,6 +1,5 @@
 package Positive;
 
-import org.apache.logging.log4j.core.net.Priority;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,83 +17,87 @@ public class CURA_Healthcare_Service extends baseTest {
         webSteps.login();
     }
 
-    @Test (priority = 1)
-    public void loginWithValidCredentials() throws InterruptedException {
-        extentReportManager.startTest("Expected Behavior Tests", "<b>Login Functionality </b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify user can log in with valid credentials</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b> Open the application URL > Enter valid username and password > Click on 'Login' button");
+    // Helper Method 1
+    private void bookAppointment() throws InterruptedException, AWTException {
         webSteps.waiting();
-        boolean urlVerification = driver.getCurrentUrl().contains("appointment");
-        Assert.assertTrue(urlVerification, "Expecting login success but not navigated to appointment page");
-    }
-
-    @Test (priority = 2)
-    public void makeAppointment() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Expected Behavior Tests", "<b>Make Appointment Functionality </b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC02: Verify user can make an appointment successfully</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button");
-        webSteps.waiting();
-        webSteps.select("MA_FacilityDropdown",3,2);
+        webSteps.select("MA_FacilityDropdown", 3, 2);
         webSteps.click("MA_HealthcareProgramRadioButton");
         webSteps.click("MA_ClickVisitDate");
         webSteps.click("MA_SelectVisitDate");
-        webSteps.type("Appointment for medical test review and discussion.","MA_Comment");
+        webSteps.type("Appointment for medical test review and discussion.", "MA_Comment");
         webSteps.click("MA_BookAppointment");
-        boolean urlVerification = driver.getCurrentUrl().contains("summary");
-        Assert.assertTrue(urlVerification, "Expected appointment to be created successfully, but confirmation message was not displayed.");
     }
 
-    @Test (priority = 3)
-    public void appointmentConfirmation() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment Confirmation </b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify appointment details confirmation after booking</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details");
-        webSteps.waiting();
-        webSteps.select("MA_FacilityDropdown",3,2);
-        webSteps.click("MA_HealthcareProgramRadioButton");
-        webSteps.click("MA_ClickVisitDate");
-        webSteps.click("MA_SelectVisitDate");
-        webSteps.type("Appointment for medical test review and discussion.","MA_Comment");
-        webSteps.click("MA_BookAppointment");
-        webSteps.scrollToElement("MA_AppointmentConfirmation");
+    // Helper Method 2
+    private void verifyAppointmentDetails() {
         String pageSource = driver.getPageSource();
-        Assert.assertTrue(pageSource.contains("Tokyo CURA Healthcare Center"), "Facility not found on page!");
-        Assert.assertTrue(pageSource.contains("No"), "Hospital readmission info missing!");
-        Assert.assertTrue(pageSource.contains("Medicaid"), "Healthcare Program missing!");
-        Assert.assertTrue(pageSource.contains("30/04/2025"), "Visit Date missing!");
-        Assert.assertTrue(pageSource.contains("Appointment for medical test review and discussion."), "Comment missing!");
+        Assert.assertTrue(pageSource.contains("Tokyo CURA Healthcare Center"), "Facility not found on confirmation page.");
+        Assert.assertTrue(pageSource.contains("No"), "Hospital readmission information missing.");
+        Assert.assertTrue(pageSource.contains("Medicaid"), "Healthcare Program information missing.");
+        Assert.assertTrue(pageSource.contains("30/04/2025"), "Visit Date information missing.");
+        Assert.assertTrue(pageSource.contains("Appointment for medical test review and discussion."), "Comment details missing.");
     }
 
-    @Test (priority = 4)
-    public void appointmentHistory() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment History </b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC04: Verify appointment history after booking</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details > View appointment history");
+    @Test(priority = 1)
+    public void loginWithValidCredentials() throws InterruptedException {
+        extentReportManager.startTest("Expected Behavior Tests", "<b>Login Functionality</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC01: Verify user can log in with valid credentials</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Open the application URL > Enter valid username and password > Click on 'Login' button");
+
         webSteps.waiting();
-        webSteps.select("MA_FacilityDropdown",3,2);
-        webSteps.click("MA_HealthcareProgramRadioButton");
-        webSteps.click("MA_ClickVisitDate");
-        webSteps.click("MA_SelectVisitDate");
-        webSteps.type("Appointment for medical test review and discussion.","MA_Comment");
-        webSteps.click("MA_BookAppointment");
+        boolean isLoginSuccessful = driver.getCurrentUrl().contains("appointment");
+        Assert.assertTrue(isLoginSuccessful, "Expected to navigate to appointment page after login.");
+    }
+
+    @Test(priority = 2)
+    public void makeAppointment() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Expected Behavior Tests", "<b>Make Appointment Functionality</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC02: Verify user can make an appointment successfully</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button");
+
+        bookAppointment();
+
+        boolean isAppointmentCreated = driver.getCurrentUrl().contains("summary");
+        Assert.assertTrue(isAppointmentCreated, "Expected appointment to be created successfully but it wasn't.");
+    }
+
+    @Test(priority = 3)
+    public void appointmentConfirmation() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment Confirmation</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC03: Verify appointment details confirmation after booking</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details");
+
+        bookAppointment();
+        verifyAppointmentDetails();
+    }
+
+    @Test(priority = 4)
+    public void appointmentHistory() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment History</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC04: Verify appointment history after booking</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details > View appointment history");
+
+        bookAppointment();
+
         webSteps.scrollToElement("MA_AppointmentConfirmation");
         webSteps.click("CURAHealthcareMenu");
         webSteps.click("CURAHealthcareHistory");
         webSteps.scrollToElement("VerifyHistoryPage");
-        String pageSource = driver.getPageSource();
-        Assert.assertTrue(pageSource.contains("Tokyo CURA Healthcare Center"), "Facility not found on page!");
-        Assert.assertTrue(pageSource.contains("No"), "Hospital readmission info missing!");
-        Assert.assertTrue(pageSource.contains("Medicaid"), "Healthcare Program missing!");
-        Assert.assertTrue(pageSource.contains("30/04/2025"), "Visit Date missing!");
-        Assert.assertTrue(pageSource.contains("Appointment for medical test review and discussion."), "Comment missing!");
+
+        verifyAppointmentDetails();
     }
 
-    @Test (priority = 5)
+    @Test(priority = 5)
     public void logout() throws InterruptedException {
-        extentReportManager.startTest("Expected Behavior Tests", "<b>Logout Functionality </b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC05: Verify user can logout successfully</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b> Open the application URL > Enter valid username and password > Click on 'Login' button > Book Appointment > Click menu > Click Logout");
+        extentReportManager.startTest("Expected Behavior Tests", "<b>Logout Functionality</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC05: Verify user can logout successfully</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Open the application URL > Enter valid username and password > Click on 'Login' button > Book Appointment > Click menu > Click Logout");
+
+        webSteps.waiting();
         webSteps.click("CURAHealthcareMenu");
         webSteps.click("LogoutButton");
+
+        boolean isLoggedOut = driver.getCurrentUrl().contains("https://katalon-demo-cura.herokuapp.com/");
+        Assert.assertTrue(isLoggedOut, "Expected to be redirected to home page after logout.");
     }
 }
