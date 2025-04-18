@@ -103,8 +103,6 @@ public class baseTest {
         return options[choice].toString().toLowerCase();
     }
 
-
-    // common method for extent report configuration
     protected void configureTestReport(@NotNull ITestResult result){
         if (result.getStatus() == ITestResult.FAILURE) {
             extentReportManager

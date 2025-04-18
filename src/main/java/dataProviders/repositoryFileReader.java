@@ -12,12 +12,10 @@ public class repositoryFileReader {
 
     public static ArrayList<String> findElementRepo(String elementIdentifier){
 
-        // variables
         String path = constantConfigs.locatorRepositoryPath;
         ArrayList<String> locatorInformation = new ArrayList<>();
         Fillo fillo = new Fillo();
 
-        //Query Execute
         String strQuery = "SELECT * FROM "+constantConfigs.locatorWorksheet +" WHERE ElementID='"+elementIdentifier+"'";
 
         try {

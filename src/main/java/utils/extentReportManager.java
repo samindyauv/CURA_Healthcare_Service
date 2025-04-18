@@ -29,7 +29,6 @@ public class extentReportManager {
     private static LocalDateTime executionEndTime;
     private static String browserName;
 
-    // Initialize Extent Report
     public static void initReport() {
         if (extent == null) {
             ExtentSparkReporter sparkReporter = new ExtentSparkReporter(REPORT_PATH);
@@ -41,54 +40,44 @@ public class extentReportManager {
             extent = new ExtentReports();
             extent.attachReporter(sparkReporter);
 
-            // Capture Execution Start Time
             executionStartTime = LocalDateTime.now();
 
-            // System Info
             extent.setSystemInfo("Execution Start Time", executionStartTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             extent.setSystemInfo("Tester", "Samindya Vass");
             extent.setSystemInfo("Environment", "Staging");
             extent.setSystemInfo("OS", System.getProperty("os.name"));
             extent.setSystemInfo("Java Version", System.getProperty("java.version"));
-//            extent.setSystemInfo("Browser", System.getProperty("browser"));
         }
     }
 
-    // Start a new test under a category
     public static void startTest(String category, String testName) {
         if (extent == null) {
             throw new IllegalStateException("ExtentReports is not initialized. Call initReport() first.");
         }
 
-        // Create parent test if not exists
         ExtentTest parentTest = parentTests.computeIfAbsent(category, k -> extent.createTest(category));
 
-        // Create child test inside the category
         currentTest = parentTest.createNode(testName);
     }
 
-    // Log Info
     public static void testSteps(String message) {
         if (currentTest != null) {
             currentTest.info(message);
         }
     }
 
-    // Log Pass
     public static void logPass(String message) {
         if (currentTest != null) {
             currentTest.pass(message);
         }
     }
 
-    // Log Fail
     public static void logFail(String message) {
         if (currentTest != null) {
             currentTest.fail(message);
         }
     }
 
-    // Capture Screenshot for Failed Tests
     public static void captureScreenshot(WebDriver driver, ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
             try {
@@ -103,7 +92,6 @@ public class extentReportManager {
         }
     }
 
-    // Finalize and Open Report
     public static void flushReport() {
         if (extent != null) {
             executionEndTime = LocalDateTime.now();
@@ -119,7 +107,6 @@ public class extentReportManager {
         }
     }
 
-    // Open Extent Report Automatically After Tests
     public static void openReport() {
         try {
             File reportFile = new File(REPORT_PATH);
