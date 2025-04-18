@@ -35,7 +35,7 @@ public class extentReportManager {
             ExtentSparkReporter sparkReporter = new ExtentSparkReporter(REPORT_PATH);
             sparkReporter.config().setDocumentTitle("Automation Test Report");
             sparkReporter.config().getCss();
-            sparkReporter.config().setReportName("Project Name");
+            sparkReporter.config().setReportName("CURA Healthcare Service");
             sparkReporter.config().setTheme(Theme.STANDARD);
 
             extent = new ExtentReports();

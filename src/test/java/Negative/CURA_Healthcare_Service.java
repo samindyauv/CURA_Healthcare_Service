@@ -20,13 +20,13 @@ public class CURA_Healthcare_Service extends baseTest {
     public Object[][] negativeLoginDataProvider() {
         return new Object[][]{
                 {"N_TC01: Verify that the user cannot log in with a valid username and an empty password", "John Doe", "", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC02: Verify that the user cannot log in with a valid username and an invalid password", "John Doe", "wrongPassword", "Login failed! Please ensure the username and password are valid."},
+                {"N_TC02: Verify that the user cannot log in with a valid username and an invalid password", "John Doe", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
                 {"N_TC03: Verify that the user cannot log in with an empty username and a valid password", "", "ThisIsNotAPassword", "Login failed! Please ensure the username and password are valid."},
                 {"N_TC04: Verify that the user cannot log in with an empty username and an empty password", "", "", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC05: Verify that the user cannot log in with an empty username and an invalid password", "", "wrongPassword", "Login failed! Please ensure the username and password are valid."},
+                {"N_TC05: Verify that the user cannot log in with an empty username and an invalid password", "", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
                 {"N_TC06: Verify that the user cannot log in with an invalid username and a valid password", "WrongUser", "ThisIsNotAPassword", "Login failed! Please ensure the username and password are valid."},
                 {"N_TC07: Verify that the user cannot log in with an invalid username and an empty password", "WrongUser", "", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC08: Verify that the user cannot log in with an invalid username and an invalid password", "WrongUser", "wrongPassword", "Login failed! Please ensure the username and password are valid."},
+                {"N_TC08: Verify that the user cannot log in with an invalid username and an invalid password", "WrongUser", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
         };
     }
 
@@ -34,6 +34,8 @@ public class CURA_Healthcare_Service extends baseTest {
     public void loginWithInvalidCredentials(String testCase, String username, String password, String expectedValidation) throws InterruptedException {
         extentReportManager.startTest("Error Handling Tests", "<b>Login Functionality - Negative Testing</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case: </font></b>" + testCase);
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Open the application URL > Enter username (valid/invalid/empty) > Enter password (valid/invalid/empty) > Click on 'Login' button > Verify error message is displayed");
+
         extentReportManager.testSteps("<b>Username: </b>" + (username.isEmpty() ? "[Empty]" : username));
         extentReportManager.testSteps("<b>Password: </b>" + (password.isEmpty() ? "[Empty]" : password));
 
