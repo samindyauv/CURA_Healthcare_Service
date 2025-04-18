@@ -65,4 +65,29 @@ public class CURA_Healthcare_Service extends baseTest {
         Assert.assertTrue(pageSource.contains("30/04/2025"), "Visit Date missing!");
         Assert.assertTrue(pageSource.contains("Appointment for medical test review and discussion."), "Comment missing!");
     }
+
+    @Test (priority = 4)
+    public void appointmentHistory() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment History </b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify appointment history after booking</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details > View appointment history");
+        webSteps.waiting();
+        webSteps.select("MA_FacilityDropdown",3,2);
+        webSteps.click("MA_HealthcareProgramRadioButton");
+        webSteps.click("MA_ClickVisitDate");
+        webSteps.click("MA_SelectVisitDate");
+        webSteps.type("Appointment for medical test review and discussion.","MA_Comment");
+        webSteps.click("MA_BookAppointment");
+        boolean urlVerification = driver.getCurrentUrl().contains("summary");
+        webSteps.scrollToElement("MA_AppointmentConfirmation");
+        webSteps.click("CURAHealthcareMenu");
+        webSteps.click("CURAHealthcareHistory");
+        webSteps.scrollToElement("VerifyHistoryPage");
+        String pageSource = driver.getPageSource();
+        Assert.assertTrue(pageSource.contains("Tokyo CURA Healthcare Center"), "Facility not found on page!");
+        Assert.assertTrue(pageSource.contains("No"), "Hospital readmission info missing!");
+        Assert.assertTrue(pageSource.contains("Medicaid"), "Healthcare Program missing!");
+        Assert.assertTrue(pageSource.contains("30/04/2025"), "Visit Date missing!");
+        Assert.assertTrue(pageSource.contains("Appointment for medical test review and discussion."), "Comment missing!");
+    }
 }
