@@ -19,14 +19,14 @@ public class CURA_Healthcare_Service extends baseTest {
     @DataProvider(name = "negativeLoginData")
     public Object[][] negativeLoginDataProvider() {
         return new Object[][]{
-                {"N_TC01: Verify that the user cannot log in with a valid username and an empty password", "John Doe", "", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC02: Verify that the user cannot log in with a valid username and an invalid password", "John Doe", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC03: Verify that the user cannot log in with an empty username and a valid password", "", "ThisIsNotAPassword", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC04: Verify that the user cannot log in with an empty username and an empty password", "", "", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC05: Verify that the user cannot log in with an empty username and an invalid password", "", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC06: Verify that the user cannot log in with an invalid username and a valid password", "WrongUser", "ThisIsNotAPassword", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC07: Verify that the user cannot log in with an invalid username and an empty password", "WrongUser", "", "Login failed! Please ensure the username and password are valid."},
-                {"N_TC08: Verify that the user cannot log in with an invalid username and an invalid password", "WrongUser", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC01: Verify that the user cannot log in with a valid username and an empty password</b>", "John Doe", "", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC02: Verify that the user cannot log in with a valid username and an invalid password</b>", "John Doe", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC03: Verify that the user cannot log in with an empty username and a valid password</b>", "", "ThisIsNotAPassword", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC04: Verify that the user cannot log in with an empty username and an empty password</b>", "", "", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC05: Verify that the user cannot log in with an empty username and an invalid password</b>", "", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC06: Verify that the user cannot log in with an invalid username and a valid password</b>", "WrongUser", "ThisIsNotAPassword", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC07: Verify that the user cannot log in with an invalid username and an empty password</b>", "WrongUser", "", "Login failed! Please ensure the username and password are valid."},
+                {"<b>N_TC08: Verify that the user cannot log in with an invalid username and an invalid password</b>", "WrongUser", "WrongPassword", "Login failed! Please ensure the username and password are valid."},
         };
     }
 
