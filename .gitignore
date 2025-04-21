@@ -1,5 +1,7 @@
 target/
 test-output/
+.idea/
+src/main/java/dataProviders
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
