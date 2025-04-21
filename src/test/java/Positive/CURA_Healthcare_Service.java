@@ -41,7 +41,7 @@ public class CURA_Healthcare_Service extends baseTest {
     @Test(priority = 1)
     public void loginWithValidCredentials() throws InterruptedException {
         extentReportManager.startTest("Expected Behavior Tests", "<b>Login Functionality</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC01: Verify user can log in with valid credentials</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>P_TC01: Verify user can log in with valid credentials</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Open the application URL > Enter valid username and password > Click on 'Login' button");
 
         webSteps.waiting();
@@ -52,7 +52,7 @@ public class CURA_Healthcare_Service extends baseTest {
     @Test(priority = 2)
     public void makeAppointment() throws InterruptedException, AWTException {
         extentReportManager.startTest("Expected Behavior Tests", "<b>Make Appointment Functionality</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC02: Verify user can make an appointment successfully</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>P_TC02: Verify user can make an appointment successfully</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button");
 
         bookAppointment();
@@ -64,7 +64,7 @@ public class CURA_Healthcare_Service extends baseTest {
     @Test(priority = 3)
     public void appointmentConfirmation() throws InterruptedException, AWTException {
         extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment Confirmation</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC03: Verify appointment details confirmation after booking</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>P_TC03: Verify appointment details confirmation after booking</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details");
 
         bookAppointment();
@@ -74,7 +74,7 @@ public class CURA_Healthcare_Service extends baseTest {
     @Test(priority = 4)
     public void appointmentHistory() throws InterruptedException, AWTException {
         extentReportManager.startTest("Expected Behavior Tests", "<b>Appointment History</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC04: Verify appointment history after booking</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>P_TC04: Verify appointment history after booking</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Login to the system > Fill valid appointment data > Click on 'Book Appointment' button > Verify appointment confirmation page and details > View appointment history");
 
         bookAppointment();
@@ -90,7 +90,7 @@ public class CURA_Healthcare_Service extends baseTest {
     @Test(priority = 5)
     public void logout() throws InterruptedException {
         extentReportManager.startTest("Expected Behavior Tests", "<b>Logout Functionality</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>TC05: Verify user can logout successfully</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case: </font>P_TC05: Verify user can logout successfully</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps: </font></b> Open the application URL > Enter valid username and password > Click on 'Login' button > Book Appointment > Click menu > Click Logout");
 
         webSteps.waiting();
